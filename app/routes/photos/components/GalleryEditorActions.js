@@ -6,6 +6,7 @@ import Icon from 'app/components/Icon';
 import { Collapse } from 'react-collapse';
 import Sticky from 'react-stickynode';
 import styles from './Overview.css';
+import Button from 'app/components/Button';
 
 type Props = {
   selectedCount: number,
@@ -26,37 +27,31 @@ const GalleryEditorActions = ({
 }: Props) => (
   <Collapse isOpened={selectedCount > 0}>
     <Sticky enabled={selectedCount > 0} innerZ={10} top={0}>
-      <div className={styles.actionsContainer}>
-        <Flex className={styles.actions} justifyContent="space-between">
-          <span>
-            <Icon
-              className={styles.deselectIcon}
-              onClick={onDeselect}
-              name="close"
-            />
-            {selectedCount} Selected
-          </span>
-          <div className={styles.actionBar}>
+      <Flex className={styles.actionsContainer}>
+        <Flex className={styles.actionBar}>
+          <div className={styles.selectedElements}>{selectedCount} valgt</div>
+          <div>
             {selectedCount === 1 && (
-              <span className={styles.action} onClick={onUpdateGalleryCover}>
+              <Button className={styles.action} onClick={onUpdateGalleryCover}>
                 Sett album cover
-              </span>
+              </Button>
             )}
             {newPicutureStatus !== -1 && (
-              <span
+              <Button
                 onClick={() => onTogglePicturesStatus(!!newPicutureStatus)}
                 className={styles.action}
               >
                 {newPicutureStatus === 0 && 'Skjul'}
                 {newPicutureStatus === 1 && 'Synligjør'}
-              </span>
+              </Button>
             )}
-            <span onClick={onDeletePictures} className={styles.action}>
+            <Button onClick={onDeletePictures} className={styles.action}>
               Slett
-            </span>
+            </Button>
+            <Button onClick={onDeselect}>Avbryt</Button>
           </div>
         </Flex>
-      </div>
+      </Flex>
     </Sticky>
   </Collapse>
 );
